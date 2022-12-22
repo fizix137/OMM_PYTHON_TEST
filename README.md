@@ -1,3 +1,3 @@
 # OMM_PYTHON_TEST
-# OMM_PYTHON_TEST
-# OMM_PYTHON_TEST
+
+pip install flatbuffers
