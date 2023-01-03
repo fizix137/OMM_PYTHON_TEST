@@ -40,12 +40,7 @@ OMM.AddMEAN_MOTION_DOT(builder, 0.00016767)
 OMM.AddMEAN_MOTION_DDOT(builder, 0)
 ISS_BUILT = OMM.End(builder)
 builder.Finish(ISS_BUILT)
-
 buf = builder.Output()
-
-ISS = OMM.OMM.GetRootAs(buf, 0)
-
-print("CREATED OMM FOR ISS", ISS.NORAD_CAT_ID())
 
 OMMCOLLECTION.StartRECORDSVector(builder, 1)
 builder.PrependUOffsetTRelative(ISS_BUILT)
@@ -55,6 +50,9 @@ OMMCOLLECTION.AddRECORDS(builder, SATS)
 OMMC_BUILT = OMMCOLLECTION.End(builder)
 builder.Finish(OMMC_BUILT)
 ommc_buf = builder.Output()
+
+ISS = OMM.OMM.GetRootAs(buf, 0)
+print("CREATED OMM FOR ISS", ISS.NORAD_CAT_ID())
 
 OMMC = OMMCOLLECTION.OMMCOLLECTION.GetRootAs(ommc_buf, 0)
 print("CREATED OMMCOLLECTION, ADDED ISS", OMMC.RECORDS(0).NORAD_CAT_ID())
