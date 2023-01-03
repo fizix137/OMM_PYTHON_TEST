@@ -634,3 +634,249 @@ def AddUSER_DEFINED_MICROSECONDS(builder, USER_DEFINED_MICROSECONDS):
 def OMMEnd(builder): return builder.EndObject()
 def End(builder):
     return OMMEnd(builder)
+
+class OMMT(object):
+
+    # OMMT
+    def __init__(self):
+        self.CCSDS_OMM_VERS = 0.0  # type: float
+        self.CREATION_DATE = None  # type: str
+        self.ORIGINATOR = None  # type: str
+        self.OBJECT_NAME = None  # type: str
+        self.OBJECT_ID = None  # type: str
+        self.CENTER_NAME = None  # type: str
+        self.REF_FRAME = 9  # type: int
+        self.REF_FRAME_EPOCH = None  # type: str
+        self.TIME_SYSTEM = 11  # type: int
+        self.MEAN_ELEMENT_THEORY = 0  # type: int
+        self.COMMENT = None  # type: str
+        self.EPOCH = None  # type: str
+        self.SEMI_MAJOR_AXIS = 0.0  # type: float
+        self.MEAN_MOTION = 0.0  # type: float
+        self.ECCENTRICITY = 0.0  # type: float
+        self.INCLINATION = 0.0  # type: float
+        self.RA_OF_ASC_NODE = 0.0  # type: float
+        self.ARG_OF_PERICENTER = 0.0  # type: float
+        self.MEAN_ANOMALY = 0.0  # type: float
+        self.GM = 0.0  # type: float
+        self.MASS = 0.0  # type: float
+        self.SOLAR_RAD_AREA = 0.0  # type: float
+        self.SOLAR_RAD_COEFF = 0.0  # type: float
+        self.DRAG_AREA = 0.0  # type: float
+        self.DRAG_COEFF = 0.0  # type: float
+        self.EPHEMERIS_TYPE = 1  # type: int
+        self.CLASSIFICATION_TYPE = None  # type: str
+        self.NORAD_CAT_ID = 0  # type: int
+        self.ELEMENT_SET_NO = 0  # type: int
+        self.REV_AT_EPOCH = 0.0  # type: float
+        self.BSTAR = 0.0  # type: float
+        self.MEAN_MOTION_DOT = 0.0  # type: float
+        self.MEAN_MOTION_DDOT = 0.0  # type: float
+        self.COV_REF_FRAME = 0  # type: int
+        self.CX_X = 0.0  # type: float
+        self.CY_X = 0.0  # type: float
+        self.CY_Y = 0.0  # type: float
+        self.CZ_X = 0.0  # type: float
+        self.CZ_Y = 0.0  # type: float
+        self.CZ_Z = 0.0  # type: float
+        self.CX_DOT_X = 0.0  # type: float
+        self.CX_DOT_Y = 0.0  # type: float
+        self.CX_DOT_Z = 0.0  # type: float
+        self.CX_DOT_X_DOT = 0.0  # type: float
+        self.CY_DOT_X = 0.0  # type: float
+        self.CY_DOT_Y = 0.0  # type: float
+        self.CY_DOT_Z = 0.0  # type: float
+        self.CY_DOT_X_DOT = 0.0  # type: float
+        self.CY_DOT_Y_DOT = 0.0  # type: float
+        self.CZ_DOT_X = 0.0  # type: float
+        self.CZ_DOT_Y = 0.0  # type: float
+        self.CZ_DOT_Z = 0.0  # type: float
+        self.CZ_DOT_X_DOT = 0.0  # type: float
+        self.CZ_DOT_Y_DOT = 0.0  # type: float
+        self.CZ_DOT_Z_DOT = 0.0  # type: float
+        self.USER_DEFINED_BIP_0044_TYPE = 0  # type: int
+        self.USER_DEFINED_OBJECT_DESIGNATOR = None  # type: str
+        self.USER_DEFINED_EARTH_MODEL = None  # type: str
+        self.USER_DEFINED_EPOCH_TIMESTAMP = 0.0  # type: float
+        self.USER_DEFINED_MICROSECONDS = 0.0  # type: float
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        OMM = OMM()
+        OMM.Init(buf, pos)
+        return cls.InitFromObj(OMM)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, OMM):
+        x = OMMT()
+        x._UnPack(OMM)
+        return x
+
+    # OMMT
+    def _UnPack(self, OMM):
+        if OMM is None:
+            return
+        self.CCSDS_OMM_VERS = OMM.CCSDS_OMM_VERS()
+        self.CREATION_DATE = OMM.CREATION_DATE()
+        self.ORIGINATOR = OMM.ORIGINATOR()
+        self.OBJECT_NAME = OMM.OBJECT_NAME()
+        self.OBJECT_ID = OMM.OBJECT_ID()
+        self.CENTER_NAME = OMM.CENTER_NAME()
+        self.REF_FRAME = OMM.REF_FRAME()
+        self.REF_FRAME_EPOCH = OMM.REF_FRAME_EPOCH()
+        self.TIME_SYSTEM = OMM.TIME_SYSTEM()
+        self.MEAN_ELEMENT_THEORY = OMM.MEAN_ELEMENT_THEORY()
+        self.COMMENT = OMM.COMMENT()
+        self.EPOCH = OMM.EPOCH()
+        self.SEMI_MAJOR_AXIS = OMM.SEMI_MAJOR_AXIS()
+        self.MEAN_MOTION = OMM.MEAN_MOTION()
+        self.ECCENTRICITY = OMM.ECCENTRICITY()
+        self.INCLINATION = OMM.INCLINATION()
+        self.RA_OF_ASC_NODE = OMM.RA_OF_ASC_NODE()
+        self.ARG_OF_PERICENTER = OMM.ARG_OF_PERICENTER()
+        self.MEAN_ANOMALY = OMM.MEAN_ANOMALY()
+        self.GM = OMM.GM()
+        self.MASS = OMM.MASS()
+        self.SOLAR_RAD_AREA = OMM.SOLAR_RAD_AREA()
+        self.SOLAR_RAD_COEFF = OMM.SOLAR_RAD_COEFF()
+        self.DRAG_AREA = OMM.DRAG_AREA()
+        self.DRAG_COEFF = OMM.DRAG_COEFF()
+        self.EPHEMERIS_TYPE = OMM.EPHEMERIS_TYPE()
+        self.CLASSIFICATION_TYPE = OMM.CLASSIFICATION_TYPE()
+        self.NORAD_CAT_ID = OMM.NORAD_CAT_ID()
+        self.ELEMENT_SET_NO = OMM.ELEMENT_SET_NO()
+        self.REV_AT_EPOCH = OMM.REV_AT_EPOCH()
+        self.BSTAR = OMM.BSTAR()
+        self.MEAN_MOTION_DOT = OMM.MEAN_MOTION_DOT()
+        self.MEAN_MOTION_DDOT = OMM.MEAN_MOTION_DDOT()
+        self.COV_REF_FRAME = OMM.COV_REF_FRAME()
+        self.CX_X = OMM.CX_X()
+        self.CY_X = OMM.CY_X()
+        self.CY_Y = OMM.CY_Y()
+        self.CZ_X = OMM.CZ_X()
+        self.CZ_Y = OMM.CZ_Y()
+        self.CZ_Z = OMM.CZ_Z()
+        self.CX_DOT_X = OMM.CX_DOT_X()
+        self.CX_DOT_Y = OMM.CX_DOT_Y()
+        self.CX_DOT_Z = OMM.CX_DOT_Z()
+        self.CX_DOT_X_DOT = OMM.CX_DOT_X_DOT()
+        self.CY_DOT_X = OMM.CY_DOT_X()
+        self.CY_DOT_Y = OMM.CY_DOT_Y()
+        self.CY_DOT_Z = OMM.CY_DOT_Z()
+        self.CY_DOT_X_DOT = OMM.CY_DOT_X_DOT()
+        self.CY_DOT_Y_DOT = OMM.CY_DOT_Y_DOT()
+        self.CZ_DOT_X = OMM.CZ_DOT_X()
+        self.CZ_DOT_Y = OMM.CZ_DOT_Y()
+        self.CZ_DOT_Z = OMM.CZ_DOT_Z()
+        self.CZ_DOT_X_DOT = OMM.CZ_DOT_X_DOT()
+        self.CZ_DOT_Y_DOT = OMM.CZ_DOT_Y_DOT()
+        self.CZ_DOT_Z_DOT = OMM.CZ_DOT_Z_DOT()
+        self.USER_DEFINED_BIP_0044_TYPE = OMM.USER_DEFINED_BIP_0044_TYPE()
+        self.USER_DEFINED_OBJECT_DESIGNATOR = OMM.USER_DEFINED_OBJECT_DESIGNATOR()
+        self.USER_DEFINED_EARTH_MODEL = OMM.USER_DEFINED_EARTH_MODEL()
+        self.USER_DEFINED_EPOCH_TIMESTAMP = OMM.USER_DEFINED_EPOCH_TIMESTAMP()
+        self.USER_DEFINED_MICROSECONDS = OMM.USER_DEFINED_MICROSECONDS()
+
+    # OMMT
+    def Pack(self, builder):
+        if self.CREATION_DATE is not None:
+            CREATION_DATE = builder.CreateString(self.CREATION_DATE)
+        if self.ORIGINATOR is not None:
+            ORIGINATOR = builder.CreateString(self.ORIGINATOR)
+        if self.OBJECT_NAME is not None:
+            OBJECT_NAME = builder.CreateString(self.OBJECT_NAME)
+        if self.OBJECT_ID is not None:
+            OBJECT_ID = builder.CreateString(self.OBJECT_ID)
+        if self.CENTER_NAME is not None:
+            CENTER_NAME = builder.CreateString(self.CENTER_NAME)
+        if self.REF_FRAME_EPOCH is not None:
+            REF_FRAME_EPOCH = builder.CreateString(self.REF_FRAME_EPOCH)
+        if self.COMMENT is not None:
+            COMMENT = builder.CreateString(self.COMMENT)
+        if self.EPOCH is not None:
+            EPOCH = builder.CreateString(self.EPOCH)
+        if self.CLASSIFICATION_TYPE is not None:
+            CLASSIFICATION_TYPE = builder.CreateString(self.CLASSIFICATION_TYPE)
+        if self.USER_DEFINED_OBJECT_DESIGNATOR is not None:
+            USER_DEFINED_OBJECT_DESIGNATOR = builder.CreateString(self.USER_DEFINED_OBJECT_DESIGNATOR)
+        if self.USER_DEFINED_EARTH_MODEL is not None:
+            USER_DEFINED_EARTH_MODEL = builder.CreateString(self.USER_DEFINED_EARTH_MODEL)
+        OMMStart(builder)
+        OMMAddCCSDS_OMM_VERS(builder, self.CCSDS_OMM_VERS)
+        if self.CREATION_DATE is not None:
+            OMMAddCREATION_DATE(builder, CREATION_DATE)
+        if self.ORIGINATOR is not None:
+            OMMAddORIGINATOR(builder, ORIGINATOR)
+        if self.OBJECT_NAME is not None:
+            OMMAddOBJECT_NAME(builder, OBJECT_NAME)
+        if self.OBJECT_ID is not None:
+            OMMAddOBJECT_ID(builder, OBJECT_ID)
+        if self.CENTER_NAME is not None:
+            OMMAddCENTER_NAME(builder, CENTER_NAME)
+        OMMAddREF_FRAME(builder, self.REF_FRAME)
+        if self.REF_FRAME_EPOCH is not None:
+            OMMAddREF_FRAME_EPOCH(builder, REF_FRAME_EPOCH)
+        OMMAddTIME_SYSTEM(builder, self.TIME_SYSTEM)
+        OMMAddMEAN_ELEMENT_THEORY(builder, self.MEAN_ELEMENT_THEORY)
+        if self.COMMENT is not None:
+            OMMAddCOMMENT(builder, COMMENT)
+        if self.EPOCH is not None:
+            OMMAddEPOCH(builder, EPOCH)
+        OMMAddSEMI_MAJOR_AXIS(builder, self.SEMI_MAJOR_AXIS)
+        OMMAddMEAN_MOTION(builder, self.MEAN_MOTION)
+        OMMAddECCENTRICITY(builder, self.ECCENTRICITY)
+        OMMAddINCLINATION(builder, self.INCLINATION)
+        OMMAddRA_OF_ASC_NODE(builder, self.RA_OF_ASC_NODE)
+        OMMAddARG_OF_PERICENTER(builder, self.ARG_OF_PERICENTER)
+        OMMAddMEAN_ANOMALY(builder, self.MEAN_ANOMALY)
+        OMMAddGM(builder, self.GM)
+        OMMAddMASS(builder, self.MASS)
+        OMMAddSOLAR_RAD_AREA(builder, self.SOLAR_RAD_AREA)
+        OMMAddSOLAR_RAD_COEFF(builder, self.SOLAR_RAD_COEFF)
+        OMMAddDRAG_AREA(builder, self.DRAG_AREA)
+        OMMAddDRAG_COEFF(builder, self.DRAG_COEFF)
+        OMMAddEPHEMERIS_TYPE(builder, self.EPHEMERIS_TYPE)
+        if self.CLASSIFICATION_TYPE is not None:
+            OMMAddCLASSIFICATION_TYPE(builder, CLASSIFICATION_TYPE)
+        OMMAddNORAD_CAT_ID(builder, self.NORAD_CAT_ID)
+        OMMAddELEMENT_SET_NO(builder, self.ELEMENT_SET_NO)
+        OMMAddREV_AT_EPOCH(builder, self.REV_AT_EPOCH)
+        OMMAddBSTAR(builder, self.BSTAR)
+        OMMAddMEAN_MOTION_DOT(builder, self.MEAN_MOTION_DOT)
+        OMMAddMEAN_MOTION_DDOT(builder, self.MEAN_MOTION_DDOT)
+        OMMAddCOV_REF_FRAME(builder, self.COV_REF_FRAME)
+        OMMAddCX_X(builder, self.CX_X)
+        OMMAddCY_X(builder, self.CY_X)
+        OMMAddCY_Y(builder, self.CY_Y)
+        OMMAddCZ_X(builder, self.CZ_X)
+        OMMAddCZ_Y(builder, self.CZ_Y)
+        OMMAddCZ_Z(builder, self.CZ_Z)
+        OMMAddCX_DOT_X(builder, self.CX_DOT_X)
+        OMMAddCX_DOT_Y(builder, self.CX_DOT_Y)
+        OMMAddCX_DOT_Z(builder, self.CX_DOT_Z)
+        OMMAddCX_DOT_X_DOT(builder, self.CX_DOT_X_DOT)
+        OMMAddCY_DOT_X(builder, self.CY_DOT_X)
+        OMMAddCY_DOT_Y(builder, self.CY_DOT_Y)
+        OMMAddCY_DOT_Z(builder, self.CY_DOT_Z)
+        OMMAddCY_DOT_X_DOT(builder, self.CY_DOT_X_DOT)
+        OMMAddCY_DOT_Y_DOT(builder, self.CY_DOT_Y_DOT)
+        OMMAddCZ_DOT_X(builder, self.CZ_DOT_X)
+        OMMAddCZ_DOT_Y(builder, self.CZ_DOT_Y)
+        OMMAddCZ_DOT_Z(builder, self.CZ_DOT_Z)
+        OMMAddCZ_DOT_X_DOT(builder, self.CZ_DOT_X_DOT)
+        OMMAddCZ_DOT_Y_DOT(builder, self.CZ_DOT_Y_DOT)
+        OMMAddCZ_DOT_Z_DOT(builder, self.CZ_DOT_Z_DOT)
+        OMMAddUSER_DEFINED_BIP_0044_TYPE(builder, self.USER_DEFINED_BIP_0044_TYPE)
+        if self.USER_DEFINED_OBJECT_DESIGNATOR is not None:
+            OMMAddUSER_DEFINED_OBJECT_DESIGNATOR(builder, USER_DEFINED_OBJECT_DESIGNATOR)
+        if self.USER_DEFINED_EARTH_MODEL is not None:
+            OMMAddUSER_DEFINED_EARTH_MODEL(builder, USER_DEFINED_EARTH_MODEL)
+        OMMAddUSER_DEFINED_EPOCH_TIMESTAMP(builder, self.USER_DEFINED_EPOCH_TIMESTAMP)
+        OMMAddUSER_DEFINED_MICROSECONDS(builder, self.USER_DEFINED_MICROSECONDS)
+        OMM = OMMEnd(builder)
+        return OMM

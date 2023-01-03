@@ -65,3 +65,60 @@ def StartRECORDSVector(builder, numElems):
 def OMMCOLLECTIONEnd(builder): return builder.EndObject()
 def End(builder):
     return OMMCOLLECTIONEnd(builder)
+import OMM
+try:
+    from typing import List
+except:
+    pass
+
+class OMMCOLLECTIONT(object):
+
+    # OMMCOLLECTIONT
+    def __init__(self):
+        self.RECORDS = None  # type: List[OMM.OMMT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        OMMCOLLECTION = OMMCOLLECTION()
+        OMMCOLLECTION.Init(buf, pos)
+        return cls.InitFromObj(OMMCOLLECTION)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, OMMCOLLECTION):
+        x = OMMCOLLECTIONT()
+        x._UnPack(OMMCOLLECTION)
+        return x
+
+    # OMMCOLLECTIONT
+    def _UnPack(self, OMMCOLLECTION):
+        if OMMCOLLECTION is None:
+            return
+        if not OMMCOLLECTION.RECORDSIsNone():
+            self.RECORDS = []
+            for i in range(OMMCOLLECTION.RECORDSLength()):
+                if OMMCOLLECTION.RECORDS(i) is None:
+                    self.RECORDS.append(None)
+                else:
+                    oMM_ = OMM.OMMT.InitFromObj(OMMCOLLECTION.RECORDS(i))
+                    self.RECORDS.append(oMM_)
+
+    # OMMCOLLECTIONT
+    def Pack(self, builder):
+        if self.RECORDS is not None:
+            RECORDSlist = []
+            for i in range(len(self.RECORDS)):
+                RECORDSlist.append(self.RECORDS[i].Pack(builder))
+            OMMCOLLECTIONStartRECORDSVector(builder, len(self.RECORDS))
+            for i in reversed(range(len(self.RECORDS))):
+                builder.PrependUOffsetTRelative(RECORDSlist[i])
+            RECORDS = builder.EndVector()
+        OMMCOLLECTIONStart(builder)
+        if self.RECORDS is not None:
+            OMMCOLLECTIONAddRECORDS(builder, RECORDS)
+        OMMCOLLECTION = OMMCOLLECTIONEnd(builder)
+        return OMMCOLLECTION

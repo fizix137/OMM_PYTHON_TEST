@@ -65,3 +65,60 @@ def StartRECORDSVector(builder, numElems):
 def MPECOLLECTIONEnd(builder): return builder.EndObject()
 def End(builder):
     return MPECOLLECTIONEnd(builder)
+import MPE
+try:
+    from typing import List
+except:
+    pass
+
+class MPECOLLECTIONT(object):
+
+    # MPECOLLECTIONT
+    def __init__(self):
+        self.RECORDS = None  # type: List[MPE.MPET]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        MPECOLLECTION = MPECOLLECTION()
+        MPECOLLECTION.Init(buf, pos)
+        return cls.InitFromObj(MPECOLLECTION)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, MPECOLLECTION):
+        x = MPECOLLECTIONT()
+        x._UnPack(MPECOLLECTION)
+        return x
+
+    # MPECOLLECTIONT
+    def _UnPack(self, MPECOLLECTION):
+        if MPECOLLECTION is None:
+            return
+        if not MPECOLLECTION.RECORDSIsNone():
+            self.RECORDS = []
+            for i in range(MPECOLLECTION.RECORDSLength()):
+                if MPECOLLECTION.RECORDS(i) is None:
+                    self.RECORDS.append(None)
+                else:
+                    mPE_ = MPE.MPET.InitFromObj(MPECOLLECTION.RECORDS(i))
+                    self.RECORDS.append(mPE_)
+
+    # MPECOLLECTIONT
+    def Pack(self, builder):
+        if self.RECORDS is not None:
+            RECORDSlist = []
+            for i in range(len(self.RECORDS)):
+                RECORDSlist.append(self.RECORDS[i].Pack(builder))
+            MPECOLLECTIONStartRECORDSVector(builder, len(self.RECORDS))
+            for i in reversed(range(len(self.RECORDS))):
+                builder.PrependUOffsetTRelative(RECORDSlist[i])
+            RECORDS = builder.EndVector()
+        MPECOLLECTIONStart(builder)
+        if self.RECORDS is not None:
+            MPECOLLECTIONAddRECORDS(builder, RECORDS)
+        MPECOLLECTION = MPECOLLECTIONEnd(builder)
+        return MPECOLLECTION
