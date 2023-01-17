@@ -3,11 +3,11 @@ import OMMCOLLECTION
 import OMM
 import flatbuffers
 
-xOMM = requests.get(
-    "http://208.87.130.67:3000/spacedatalatest/omm/0x9858effd232b4033e47d90003d41ec34ecaeda94?format=fbs")
+with open("data/0x9858EfFD232B4033E47d90003D41EC34EcaEda94/QmepW1hutjHdrPMhWBJCyinz8bfjtJ3WKsspb5vvcD6DTz.OMM.fbs", "rb") as f:
+    xOMM = f.read()
 
 yOMMCOLLECTION = OMMCOLLECTION.OMMCOLLECTION.GetRootAsOMMCOLLECTION(
-    xOMM.content)
+    xOMM)
 
 for yOMM in range(yOMMCOLLECTION.RECORDSLength()):
     yOMMRECORD = yOMMCOLLECTION.RECORDS(yOMM)
