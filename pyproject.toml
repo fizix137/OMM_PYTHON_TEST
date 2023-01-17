@@ -1,0 +1,13 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "spacedatastandards"
+authors = [{name = "TJ Koury", email = "tj@spacedatastandards.org"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+dependencies = ["flatbuffers", "eth_keys"]
+
+[project.urls]
+Home = "https://spacedatastandards.org/"
