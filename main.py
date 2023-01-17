@@ -3,11 +3,23 @@ import OMMCOLLECTION
 import OMM
 import flatbuffers
 
-with open("data/0x9858EfFD232B4033E47d90003D41EC34EcaEda94/QmepW1hutjHdrPMhWBJCyinz8bfjtJ3WKsspb5vvcD6DTz.OMM.fbs", "rb") as f:
+provider_eth_address = "0x9858EfFD232B4033E47d90003D41EC34EcaEda94"
+fb_cid = "QmepW1hutjHdrPMhWBJCyinz8bfjtJ3WKsspb5vvcD6DTz"
+pdFP = f"{provider_eth_address}/{fb_cid}.OMM.fbs"
+
+# Load OMMCOLLECTION from file
+with open("data/"+pdFP, "rb") as f:
     xOMM = f.read()
 
-yOMMCOLLECTION = OMMCOLLECTION.OMMCOLLECTION.GetRootAsOMMCOLLECTION(
-    xOMM)
+# Load the signature from a text file
+with open("data/"+pdFP+".sig", "r") as f:
+    signature = f.read()
+
+# check if the signature starts with "0x" and remove it if so
+if signature.startswith("0x"):
+    signature = signature[2:]
+
+yOMMCOLLECTION = OMMCOLLECTION.OMMCOLLECTION.GetRootAsOMMCOLLECTION(xOMM)
 
 for yOMM in range(yOMMCOLLECTION.RECORDSLength()):
     yOMMRECORD = yOMMCOLLECTION.RECORDS(yOMM)
